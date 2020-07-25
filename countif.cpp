@@ -1,4 +1,7 @@
-#include <cmath>    // for sqrt()
+//
+// Created by kobi on 7/25/20.
+//
+
 #include <cstdlib>  // for atoi()
 #include <execution>// for the execution policy
 #include <iostream>
@@ -6,7 +9,6 @@
 #include <vector>
 
 #include "timer.hpp"
-
 
 int main(int argc, char *argv[]) {
     // initialize numElems from command line (default: 1000)
@@ -19,36 +21,33 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    struct Data {
-        double value;// initial value
-        double sqrt; // parallel computed square root
-    };
-
     // initialize numElems values without square root:
-    std::vector<Data> coll;
+    std::vector<uint64_t> coll;
     coll.reserve(numElems);
     for (int i = 0; i < numElems; ++i) {
-        coll.push_back(Data{i * 4.37, 0});
+        coll.push_back(i);
     }
 
     // loop to make measurements mature:
     for (int i{0}; i < 5; ++i) {
         Timer t;
         // sequential execution:
-        for_each(std::execution::seq,
-                 coll.begin(), coll.end(),
-                 [](auto &val) {
-                     val.sqrt = std::sqrt(val.value);
-                 });
+        auto num = std::count_if(std::execution::seq,
+                                 coll.begin(), coll.end(),
+                                 [](const auto val) {
+                                     return val % 2 == 0;
+                                 });
         t.printDiff("sequential: ");
+        std::clog << "result " << num << '\n';
 
         // parallel execution:
-        for_each(std::execution::par,
-                 coll.begin(), coll.end(),
-                 [](auto &val) {
-                     val.sqrt = std::sqrt(val.value);
-                 });
+        num = std::count_if(std::execution::par,
+                            coll.begin(), coll.end(),
+                            [](const auto val) {
+                                return val % 2 == 0;
+                            });
         t.printDiff("parallel:   ");
+        std::clog << "result " << num << '\n';
         std::cout << '\n';
     }
 }

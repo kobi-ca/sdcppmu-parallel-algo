@@ -2,10 +2,10 @@
 // Created by kobi on 7/25/20.
 //
 
-#include <string>
-#include <vector>
 #include <algorithm>
 #include <execution>
+#include <string>
+#include <vector>
 
 #include "timer.hpp"
 
@@ -22,9 +22,9 @@ int main(int argc, char *argv[]) {
     }
 
     std::vector<std::string> coll;
-    for (int i=0; i < numElems / 2 ; i++) {
-        (void)coll.emplace_back("id" + std::to_string(i));
-        (void)coll.emplace_back("ID" + std::to_string(i));
+    for (int i = 0; i < numElems / 2; i++) {
+        (void) coll.emplace_back("id" + std::to_string(i));
+        (void) coll.emplace_back("ID" + std::to_string(i));
     }
 
     // loop to make measurements mature:
@@ -40,13 +40,12 @@ int main(int argc, char *argv[]) {
         t.printDiff("parallel unseq:\t\t");
 
         std::clog << '\n';
-
     }
 
     std::clog << "with lambda\n";
     for (int i{0}; i < 5; ++i) {
         Timer t;
-        const auto l([](const auto& v1, const auto& v2){ return v1.substr(2) < v2.substr(2); });
+        const auto l([](const auto &v1, const auto &v2) { return v1.substr(2) < v2.substr(2); });
         sort(begin(coll), end(coll), l);
         t.printDiff("sequential: ");
 
@@ -59,7 +58,7 @@ int main(int argc, char *argv[]) {
     std::clog << "improved lambda\n";
     for (int i{0}; i < 5; ++i) {
         Timer t;
-        const auto l([](const auto& v1, const auto& v2){ return std::string_view(v1).substr(2) < std::string_view(v2).substr(2); });
+        const auto l([](const auto &v1, const auto &v2) { return std::string_view(v1).substr(2) < std::string_view(v2).substr(2); });
         sort(begin(coll), end(coll), l);
         t.printDiff("sequential: ");
 
@@ -68,5 +67,4 @@ int main(int argc, char *argv[]) {
 
         std::clog << '\n';
     }
-
 }

@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
     try {
         std::size_t num{};
-        if(std::getenv("REGULAR")) {
+        if (std::getenv("REGULAR")) {
             num = std::count_if(
                     coll.begin(), coll.end(),
                     [](const auto val) {

@@ -25,7 +25,9 @@ void printSum(const long num) {
 #include <iomanip>
 
 int main() {
-    std::clog << std::setprecision(20);
+    if (::getenv("PREC")) {
+        std::clog << std::setprecision(20);
+    }
     printSum(1);
     printSum(1000);
     printSum(1000000);

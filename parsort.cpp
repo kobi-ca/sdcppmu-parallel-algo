@@ -21,6 +21,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    std::clog << "Elements: " << numElems << '\n';
+
     std::vector<std::string> coll;
     for (int i = 0; i < numElems / 2; i++) {
         (void) coll.emplace_back("id" + std::to_string(i));

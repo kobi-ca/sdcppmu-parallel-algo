@@ -23,6 +23,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    std::clog << "Elements: " << numElems << '\n';
+
     // initialize numElems values without square root:
     std::vector<uint64_t> coll;
     coll.reserve(numElems);

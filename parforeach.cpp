@@ -2,9 +2,12 @@
 #include <execution>// for the execution policy
 #include <numeric>
 #include <vector>
+#include <iostream>
 
 int main() {
     constexpr auto numElems = 1000U;
+
+    std::clog << "Elements: " << numElems << '\n';
 
     struct Data final {
         double value{};// initial value

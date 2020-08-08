@@ -19,7 +19,9 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    struct Data {
+    std::clog << "Elements: " << numElems << '\n';
+
+    struct Data final {
         double value;// initial value
         double sqrt; // parallel computed square root
     };
